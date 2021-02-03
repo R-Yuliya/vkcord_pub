@@ -98,7 +98,7 @@ easyvk({
                         content += '\nГолосовое сообщение';
                         break;
                     case 'audio':
-                        content += '\nАудиозапись';
+                        content += `\nАудиозапись\nНазвание: ${attachment.audio.artist} - ${attachment.audio.title}`;
                         break;
                 }
 
@@ -124,7 +124,7 @@ easyvk({
                     value: content.replace('<br>', '\n')
                 })
                 .setTimestamp()
-            if (attachmentsArray) msg.setImage(attachmentsArray[attachmentsArray.length - 1].url)
+            if (attachmentsArray > 1) msg.setImage(attachmentsArray[attachmentsArray.length - 1].url)
 
             // отправляем туда полученное сообщение
             channel.send(msg)
