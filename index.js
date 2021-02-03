@@ -77,7 +77,7 @@ easyvk({
             // запрос для получения информации о пользователе, который отправил сообщение
             let {body} = await superagent.get(`https://api.vk.com/method/users.get?user_ids=${fullMessage.from_id}&fields=photo_max&access_token=${vk.session.access_token}&v=5.126`);
 
-            let attachmentsArray;
+            let attachmentsArray = [];
             let content = message[5];
 
             for (const attachment of fullMessage.attachments)
@@ -94,8 +94,11 @@ easyvk({
                         content += `\n[Запись на стене](https://vk.com/feed?w=wall${attachment.wall.from_id}_${attachment.wall.id})`;
                         attachmentsArray.push(...wall.attachments);
                         break;
+                    case 'audio_message':
+                        content += '\nГолосовое сообщение';
+                        break;
                     case 'audio':
-                        content += '\nАудио';
+                        content += '\nАудиозапись';
                         break;
                 }
 
